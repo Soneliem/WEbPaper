@@ -2,12 +2,20 @@ import config from '@/config.js';
 import puppeteer from 'puppeteer';
 import sharp from 'sharp';
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
+import { spawnSync } from 'child_process';
 
 const scheduler = new ToadScheduler();
 
 const task = new AsyncTask('simple task', () => {
-  return screenshot();
+  return screenshot().then(() => {
+    const pythonProcess = spawnSync('~/epd/bin/python', ['main.py']);
+    const result = pythonProcess.stdout.toString().trim();
+    console.log(result);
+    const error = pythonProcess.stderr.toString().trim();
+    if (error) console.error(error);
+  });
 });
+
 const job = new SimpleIntervalJob(
   { seconds: config.REFRESH_INTERVAL, runImmediately: true },
   task,
@@ -31,7 +39,7 @@ async function screenshot() {
   await new Promise(r => setTimeout(r, config.LOAD_TIME));
   const screenshot = await page.screenshot();
   await browser.close();
-  let sharpImage = await sharp(screenshot);
+  let sharpImage = sharp(screenshot);
   if (config.NEAGTIVE) sharpImage = sharpImage.negate({ alpha: false });
   await sharpImage.toFile('screenshot.png');
 }
