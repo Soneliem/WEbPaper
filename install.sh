@@ -11,22 +11,24 @@ else
     echo "Node.js is already installed"
 fi
 
+sudo apt-get install -y python3-dev chromium-browser
+
 # Check if the virtual environment exists
-if [ ! -d "epd" ]
+if [ ! -d "venv" ]
 then
     # Create a new virtual environment
-    python3 -m venv epd
+    python3 -m venv --system-site-packages venv
 else
-    echo "Virtual environment 'epd' already exists"
+    echo "Virtual environment 'venv' already exists"
 fi
 # Activate the virtual environment
-source epd/bin/activate
+source venv/bin/activate
 
 # Check if omni-epd is installed
-if ! pip show omni-epd &> /dev/null
+if ! pip3 show omni-epd &> /dev/null
 then
     # Install the git repository
-    pip install git+https://github.com/robweber/omni-epd.git#egg=omni-epd
+    pip3 install git+https://github.com/robweber/omni-epd.git#egg=omni-epd
 else
     echo "omni-epd is already installed"
 fi

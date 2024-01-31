@@ -8,7 +8,7 @@ const scheduler = new ToadScheduler();
 
 const task = new AsyncTask('simple task', () => {
   return screenshot().then(() => {
-    const pythonProcess = spawnSync('~/epd/bin/python', ['main.py']);
+    const pythonProcess = spawnSync('venv/bin/python', ['main.py']);
     const result = pythonProcess.stdout.toString().trim();
     console.log(result);
     const error = pythonProcess.stderr.toString().trim();
@@ -28,9 +28,13 @@ scheduler.addSimpleIntervalJob(job);
 
 async function screenshot() {
   console.log('Taking screenshot');
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    executablePath: '/usr/bin/chromium-browser',
+  });
 
   const page = await browser.newPage();
+  console.log('Setting viewport', config.DISPLAY_WIDTH, config.DISPLAY_HEIGHT);
   await page.setViewport({
     width: config.DISPLAY_WIDTH,
     height: config.DISPLAY_HEIGHT,

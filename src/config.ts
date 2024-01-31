@@ -1,8 +1,7 @@
 import 'dotenv/config';
-import { cleanEnv, str, num, url, bool } from 'envalid';
+import { cleanEnv, num, url, bool } from 'envalid';
 
 const config = cleanEnv(process.env, {
-  NODE_ENV: str(),
   DISPLAY_WIDTH: num({
     desc: 'The width of the display',
     default: 1920,
@@ -12,12 +11,12 @@ const config = cleanEnv(process.env, {
     default: 1080,
   }),
   LOAD_TIME: num({
-    desc: 'The time to wait for the page to load',
-    default: 5000,
+    desc: 'The time to wait for the page to load in ms',
+    default: 1000,
   }),
   REFRESH_INTERVAL: num({
-    desc: 'The time between refreshes',
-    default: 60000,
+    desc: 'The time between refreshes in seconds',
+    default: 60,
   }),
   URL: url({
     desc: 'The URL to screenshot',
