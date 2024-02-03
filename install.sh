@@ -35,3 +35,12 @@ fi
 
 # Deactivate the virtual environment
 deactivate
+
+# Check if the .env file exists
+if [ ! -f ".env" ]
+then
+    # Copy the .env.example file to .env
+    cp .env.example .env
+else
+    echo ".env file already exists"
+fi
