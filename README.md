@@ -25,6 +25,7 @@ The application uses a `.env` file to configure the application. The following v
 - `URL` — The URL of the website to take a screenshot of.
 - `LOAD_TIME` — The time in milliseconds to wait for the website to load before taking a screenshot.
 - `UPDATE_INTERVAL` — The interval in minutes to take a new screenshot.
+- `NEGATIVE` — A boolean value to invert the colors of the screenshot.
 
 ## Usage
 
@@ -33,3 +34,7 @@ Run the application with the following command:
 ```bash
 npm run prod
 ```
+
+## Credits
+
+This project was loosely based on [rpi-magicmirror-eink](https://github.com/BenRoe/rpi-magicmirror-eink).

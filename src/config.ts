@@ -22,7 +22,7 @@ const config = cleanEnv(process.env, {
     desc: 'The URL to screenshot',
     default: 'https://google.com',
   }),
-  NEAGTIVE: bool({
+  NEGATIVE: bool({
     desc: 'Whether to invert the image',
     default: false,
   }),

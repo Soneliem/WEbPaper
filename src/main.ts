@@ -44,6 +44,6 @@ async function screenshot() {
   const screenshot = await page.screenshot();
   await browser.close();
   let sharpImage = sharp(screenshot);
-  if (config.NEAGTIVE) sharpImage = sharpImage.negate({ alpha: false });
+  if (config.NEGATIVE) sharpImage = sharpImage.negate({ alpha: false });
   await sharpImage.toFile('screenshot.png');
 }
